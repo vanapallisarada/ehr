@@ -138,6 +138,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const bodyParser = require("body-parser");
 
 
 dotenv.config();
@@ -149,6 +150,7 @@ const locationRoutes = require("./routes/locationRoutes"); // Make sure this is 
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(bodyParser.json());
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -157,6 +159,8 @@ mongoose
 
 app.use("/api/auth", authRoutes);
 app.use("/api/locations", locationRoutes); // Register the locations route
+
+// app.use('/api/locations', require('./routes/locations'));
 
 
 // app.use("/api/users", authRoutes); // ✅ Ensure this is correct
